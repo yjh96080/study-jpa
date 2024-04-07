@@ -12,8 +12,12 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
+@Getter
+@Setter
 public class Category {
 	
 	@GeneratedValue
@@ -35,4 +39,13 @@ public class Category {
 	
 	@OneToMany(mappedBy = "parent")
 	private List<Category> child = new ArrayList<Category>();
+
+	public void addChildCategory(Category child) {
+        this.child.add(child);
+        child.setParent(this);
+    }
+
+    public void addItem(Item item) {
+        items.add(item);
+    }
 }
